@@ -6,6 +6,8 @@ def test_plantillas_registradas():
     disponibles = listar_plantillas()
     assert "corrediza_2h_fijo" in disponibles
     assert "batiente_4h_1proyectante" in disponibles
+    assert "corrediza_nh" in disponibles
+    assert "batiente_1h" in disponibles
 
 
 def test_corrediza_2h_fijo_caso_aceptacion():
@@ -56,3 +58,32 @@ def test_batiente_4h_1proyectante():
 
     # 4 vidrios batientes + 1 vidrio proyectante
     assert sum(p.cantidad for p in despiece.piezas_vidrio) == 5
+
+
+def test_corrediza_nh_4_hojas():
+    plantilla = obtener_plantilla("corrediza_nh")
+    despiece = plantilla.calcular_piezas("V-TEST-3", ancho_total_mm=4250, alto_total_mm=1430, num_hojas=4)
+
+    assert sum(p.cantidad for p in despiece.piezas_vidrio) == 4
+    assert despiece.piezas_herrajes == []
+    # sin paño fijo: no hay parante central, solo el marco perimetral + hojas
+    assert {p.modulo for p in despiece.piezas_aluminio} == {"marco", "corredizo"}
+
+
+def test_corrediza_nh_default_2_hojas():
+    plantilla = obtener_plantilla("corrediza_nh")
+    despiece = plantilla.calcular_piezas("V-TEST-4", ancho_total_mm=600, alto_total_mm=450)
+    assert sum(p.cantidad for p in despiece.piezas_vidrio) == 2
+
+
+def test_batiente_1h():
+    plantilla = obtener_plantilla("batiente_1h")
+    despiece = plantilla.calcular_piezas("V-TEST-5", ancho_total_mm=800, alto_total_mm=2100)
+
+    conteos = {}
+    for h in despiece.piezas_herrajes:
+        conteos[h.codigo] = conteos.get(h.codigo, 0) + h.cantidad
+
+    assert conteos["BISAGRA-BAT"] == 2
+    assert conteos["CERRADURA-BAT"] == 1
+    assert sum(p.cantidad for p in despiece.piezas_vidrio) == 1
