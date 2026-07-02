@@ -17,6 +17,7 @@ from pathlib import Path
 import plantillas  # noqa: F401  (importarlo registra las plantillas disponibles)
 from catalogo.loader import cargar_catalogo
 from etiquetas.pdf_etiquetas import generar_etiquetas_pdf
+from inventario.db import conectar, generar_lista_compras, inicializar_db
 from motor.corte_aluminio import optimizar_corte_aluminio
 from motor.corte_vidrio import optimizar_corte_vidrio
 from plantillas.registro import obtener_plantilla
@@ -103,6 +104,16 @@ def main() -> None:
     print(f"  Mano de obra ({presupuesto.pct_mano_obra:.1f}%): {presupuesto.monto_mano_obra:.2f} {catalogo.config.moneda}")
     print(f"  Margen ({presupuesto.pct_margen:.1f}%): {presupuesto.monto_margen:.2f} {catalogo.config.moneda}")
     print(f"  PRECIO FINAL: {presupuesto.precio_final:.2f} {catalogo.config.moneda}")
+
+    conn_inventario = conectar(":memory:")
+    inicializar_db(conn_inventario)
+    lista_compras = generar_lista_compras(conn_inventario, resultados_aluminio, resultados_vidrio, piezas_herrajes)
+    print("\n=== Material a comprar (contra inventario vacío de ejemplo — sin retazos ni stock real cargado) ===")
+    if not lista_compras:
+        print("  Todo cubierto con el inventario actual, no hace falta comprar nada.")
+    for item in lista_compras:
+        print(f"  Comprar {item.cantidad} x {item.descripcion} ({item.tipo})")
+    conn_inventario.close()
 
     DIR_SALIDA.mkdir(exist_ok=True)
     ruta_presupuesto = DIR_SALIDA / "presupuesto_demo_leo.pdf"
