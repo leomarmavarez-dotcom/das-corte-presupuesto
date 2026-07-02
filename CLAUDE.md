@@ -10,7 +10,7 @@ Dueño del negocio y del criterio final: Leo. Ejecución técnica vía Claude Co
 
 ## Estado actual
 
-- **Fase 1 completa**: motor de cálculo end-to-end funcionando, 17 tests pasando, caso de aceptación (corrediza 2h+fijo 1.20×1.50m) validado end-to-end.
+- **Fase 1 completa**: motor de cálculo end-to-end funcionando, 20 tests pasando, caso de aceptación (corrediza 2h+fijo 1.20×1.50m) validado end-to-end.
 - **Fase 2** (pendiente, no empezar sin luz verde explícita de Leo): dashboard/configurador visual tipo "armar módulos" conectado en vivo al motor de la Fase 1.
 - **Fase 3** (pendiente, no empezar sin luz verde explícita de Leo): integración con Blender (`bpy`) para simulación 3D del ensamble a partir de los datos de despiece.
 
@@ -56,7 +56,16 @@ Si una tarea futura toca estos archivos, señalar explícitamente en la respuest
 ## Cómo extender
 
 - Agregar una plantilla nueva (tercer tipo de producto, ej. puerta batiente o mampara de baño): nueva clase en `plantillas/`, decorar con `@registrar_plantilla("clave")`, importar en `plantillas/__init__.py`. Reutilizar los helpers geométricos existentes en `plantillas/comun.py` — no duplicar lógica de cálculo de traslapes/holguras entre plantillas.
-- Antes de tocar el motor de optimización (`motor/`): correr los 17 tests existentes primero (`pytest`), y no romper el caso de aceptación end-to-end.
+- Antes de tocar el motor de optimización (`motor/`): correr los tests existentes primero (`pytest`), y no romper el caso de aceptación end-to-end.
+
+## Plantillas registradas
+
+- `corrediza_2h_fijo` — ventana corrediza de 2 hojas + paño fijo lateral (plantilla original, caso de aceptación).
+- `batiente_4h_1proyectante` — ventana de 4 hojas batientes + 1 módulo proyectante superior (plantilla original).
+- `corrediza_nh` (agregada 2026-07-02) — corrediza genérica de N hojas sin paño fijo (parámetro `num_hojas`, default 2). Reusa `seccion_corrediza` de `plantillas/comun.py` sin modificarla. Sirve tanto para ventanas corredizas como para puertas corredizas (ej. puerta de baño) — el sistema no distingue "ventana" de "puerta" a nivel de perfil todavía, es la misma geometría con distinto vidrio/tamaño.
+- `batiente_1h` (agregada 2026-07-02) — batiente de 1 sola hoja (puerta o ventana), reusa `seccion_batientes` con `num_hojas=1`. Por defecto usa vidrio Templado 6mm (vidrio de seguridad, típico en puertas) en vez del Claro 4mm default de las demás plantillas. **No modela panel ciego inferior** — asume la hoja 100% vidrio sostenido por junquillo; si DAS fabrica puertas batientes con panel ciego (zócalo de aluminio sin vidrio en la parte baja), esta plantilla no lo captura todavía y hay que extenderla.
+- Ninguna plantilla modela **color de perfil** (ej. "blanco") — el catálogo (`catalogo/perfiles.json`) no tiene variantes por color, solo un código de perfil con un costo. Si DAS cobra distinto por color, hace falta agregar esa dimensión al catálogo antes de presupuestar con color real.
+- `demo_presupuesto_leo.py` en la raíz: script de prueba que arma una orden de 5 aberturas (tamaños reales que dio Leo) combinando el corte entre todas para mostrar el flujo completo con precios placeholder — no es parte del flujo de producción, es solo demo.
 
 ## Convenciones de trabajo
 
