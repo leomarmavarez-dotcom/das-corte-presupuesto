@@ -1,0 +1,9 @@
+{
+  "moneda": "USD",
+  "longitud_barra_default_mm": 6100,
+  "kerf_aluminio_mm": 3.0,
+  "kerf_vidrio_mm": 4.0,
+  "pct_mano_obra_default": 30.0,
+  "pct_margen_default": 25.0,
+  "_nota": "PLACEHOLDER DE EJEMPLO: ajusta moneda, kerf y porcentajes a la política real de DAS Aluminios y Vidrios"
+}

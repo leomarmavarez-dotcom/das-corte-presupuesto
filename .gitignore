@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+salida/
+*.db
+.pytest_cache/

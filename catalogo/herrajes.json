@@ -1,0 +1,9 @@
+[
+  {"codigo": "COMPAS-PROY", "nombre": "Compás de proyectante", "unidad": "par", "costo_unitario": 6.0, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "MANIJA-PROY", "nombre": "Manija de proyectante", "unidad": "unidad", "costo_unitario": 3.5, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "BISAGRA-BAT", "nombre": "Bisagra hoja batiente", "unidad": "unidad", "costo_unitario": 2.0, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "CERRADURA-BAT", "nombre": "Cerradura/pasador hoja batiente", "unidad": "unidad", "costo_unitario": 4.0, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "RUEDA-CORREDIZA", "nombre": "Rueda corrediza", "unidad": "unidad", "costo_unitario": 2.5, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "FELPA", "nombre": "Felpa", "unidad": "metro", "costo_unitario": 0.8, "_nota": "PLACEHOLDER DE EJEMPLO"},
+  {"codigo": "CERRADURA-CORREDIZA", "nombre": "Cerradura corrediza", "unidad": "unidad", "costo_unitario": 5.0, "_nota": "PLACEHOLDER DE EJEMPLO"}
+]

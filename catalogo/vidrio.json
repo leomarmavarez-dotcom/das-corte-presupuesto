@@ -1,0 +1,18 @@
+[
+  {
+    "tipo": "Claro",
+    "espesor_mm": 4.0,
+    "ancho_lamina_mm": 3600,
+    "alto_lamina_mm": 2140,
+    "costo_m2": 14.0,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con la medida de lámina y costo/m2 real del proveedor"
+  },
+  {
+    "tipo": "Templado",
+    "espesor_mm": 6.0,
+    "ancho_lamina_mm": 3600,
+    "alto_lamina_mm": 2140,
+    "costo_m2": 32.0,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con la medida de lámina y costo/m2 real del proveedor"
+  }
+]

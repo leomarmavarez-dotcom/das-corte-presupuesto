@@ -1,0 +1,34 @@
+[
+  {
+    "codigo": "MC-01",
+    "nombre": "Marco corrediza/batiente (PLACEHOLDER - completar con el perfil real)",
+    "categoria": "marco",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 28.5,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+  },
+  {
+    "codigo": "HJ-01",
+    "nombre": "Hoja corrediza/batiente (PLACEHOLDER - completar con el perfil real)",
+    "categoria": "hoja",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 24.0,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+  },
+  {
+    "codigo": "JQ-01",
+    "nombre": "Junquillo (PLACEHOLDER - completar con el perfil real)",
+    "categoria": "junquillo",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 6.5,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+  },
+  {
+    "codigo": "TR-01",
+    "nombre": "Travesaño (PLACEHOLDER - completar con el perfil real)",
+    "categoria": "travesano",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 26.0,
+    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+  }
+]
