@@ -11,6 +11,9 @@ def test_plantillas_registradas():
 
 
 def test_corrediza_2h_fijo_caso_aceptacion():
+    # Geometría Serie Normal (ALD-701..709) del manual técnico Aldoca que dio
+    # Leo 2026-07-03 (dimensiones/pesos validados contra la tabla de texto,
+    # SIN validar contra los diagramas del PDF — ver notas en comun.py).
     plantilla = obtener_plantilla("corrediza_2h_fijo")
     despiece = plantilla.calcular_piezas("V-TEST", ancho_total_mm=1200, alto_total_mm=1500, ancho_fijo_mm=400)
 
@@ -21,16 +24,32 @@ def test_corrediza_2h_fijo_caso_aceptacion():
             for _ in range(p.cantidad)
         )
 
-    assert longitudes("MC-01", "marco") == [1200, 1200, 1420, 1420, 1420]
-    assert longitudes("JQ-01", "fijo") == [330, 330, 1410, 1410]
-    assert longitudes("HJ-01", "corredizo") == [316, 316, 316, 316, 1420, 1420, 1420, 1420]
-    assert longitudes("JQ-01", "corredizo") == [306, 306, 306, 306, 1346, 1346, 1346, 1346]
+    # Cabezal/sillar (ALD-702/706) horizontales pasantes; jamba (ALD-709)
+    # lateral + parante central (misma jamba, sin perfil propio confirmado).
+    assert longitudes("ALD-702", "marco") == [1200]
+    assert longitudes("ALD-706", "marco") == [1200]
+    assert longitudes("ALD-709", "marco") == [1429, 1429, 1429]
 
-    vidrios = {(round(p.ancho_mm), round(p.alto_mm)): p.cantidad for p in despiece.piezas_vidrio}
-    assert vidrios[(330, 1410)] == 1
-    assert vidrios[(306, 1346)] == 2
+    assert longitudes("JQ-01", "fijo") == [345, 345, 1419, 1419]
 
-    assert despiece.piezas_herrajes == []
+    # Cada hoja: 1 vertical liso (ALD-703) + 1 vertical gancho (ALD-701)
+    assert longitudes("ALD-703", "corredizo") == [1429, 1429]
+    assert longitudes("ALD-701", "corredizo") == [1429, 1429]
+    assert longitudes("ALD-704", "corredizo") == [324, 324, 324, 324]
+    assert longitudes("JQ-01", "corredizo") == [314, 314, 314, 314, 1333, 1333, 1333, 1333]
+
+    vidrios: dict[tuple[int, int], int] = {}
+    for p in despiece.piezas_vidrio:
+        clave = (round(p.ancho_mm), round(p.alto_mm))
+        vidrios[clave] = vidrios.get(clave, 0) + p.cantidad
+    assert vidrios[(345, 1419)] == 1  # paño fijo
+    assert vidrios[(314, 1333)] == 2  # 2 hojas corredizas
+
+    conteos_herrajes = {}
+    for h in despiece.piezas_herrajes:
+        conteos_herrajes[h.codigo] = conteos_herrajes.get(h.codigo, 0) + h.cantidad
+    assert conteos_herrajes["RUEDA-CORREDIZA"] == 4  # 2 hojas x 2 ruedas (cantidad supuesta, sin confirmar)
+    assert conteos_herrajes["CERRADURA-CORREDIZA"] == 1
 
 
 def test_corrediza_ancho_fijo_invalido():
@@ -65,9 +84,20 @@ def test_corrediza_nh_4_hojas():
     despiece = plantilla.calcular_piezas("V-TEST-3", ancho_total_mm=4250, alto_total_mm=1430, num_hojas=4)
 
     assert sum(p.cantidad for p in despiece.piezas_vidrio) == 4
-    assert despiece.piezas_herrajes == []
     # sin paño fijo: no hay parante central, solo el marco perimetral + hojas
     assert {p.modulo for p in despiece.piezas_aluminio} == {"marco", "corredizo"}
+
+    conteos = {}
+    for h in despiece.piezas_herrajes:
+        conteos[h.codigo] = conteos.get(h.codigo, 0) + h.cantidad
+    assert conteos["RUEDA-CORREDIZA"] == 8   # 4 hojas x 2 ruedas (cantidad supuesta, sin confirmar)
+    assert conteos["CERRADURA-CORREDIZA"] == 1
+
+    # hojas de extremo (1 y 4): 1 liso + 1 gancho; hojas intermedias (2 y 3): 2 gancho
+    verticales_liso = [p for p in despiece.piezas_aluminio if p.perfil_codigo == "ALD-703"]
+    verticales_gancho = [p for p in despiece.piezas_aluminio if p.perfil_codigo == "ALD-701"]
+    assert sum(p.cantidad for p in verticales_liso) == 2
+    assert sum(p.cantidad for p in verticales_gancho) == 6
 
 
 def test_corrediza_nh_default_2_hojas():

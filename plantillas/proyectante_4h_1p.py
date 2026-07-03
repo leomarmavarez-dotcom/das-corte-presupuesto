@@ -23,6 +23,7 @@ class Ventana4HojasProyectante(PlantillaVentana):
                          reglas: ReglasFabricacion | None = None,
                          perfil_marco: str = "MC-01", perfil_hoja: str = "HJ-01",
                          perfil_junquillo: str = "JQ-01", perfil_travesano: str = "TR-01",
+                         perfil_hoja_proyectante: str = "ALD-724", perfil_junquillo_proyectante: str = "ALD-722",
                          tipo_vidrio: str = "Claro", espesor_vidrio_mm: float = 4.0, **_) -> DespieceVentana:
         reglas = reglas or ReglasFabricacion()
         if alto_proyectante_mm is None:
@@ -50,7 +51,7 @@ class Ventana4HojasProyectante(PlantillaVentana):
 
         alu_p, vid_p, her_p = panel_proyectante(
             ventana_id, "proyectante", ancho_util, alto_util_proyectante, reglas,
-            perfil_hoja, perfil_junquillo, tipo_vidrio, espesor_vidrio_mm)
+            perfil_hoja_proyectante, perfil_junquillo_proyectante, tipo_vidrio, espesor_vidrio_mm)
         despiece.piezas_aluminio += alu_p
         despiece.piezas_vidrio += vid_p
         despiece.piezas_herrajes += her_p

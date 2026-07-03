@@ -20,6 +20,13 @@ class PerfilAluminio:
     categoria: str
     longitud_barra_mm: float
     costo_por_barra: float
+    # Datos físicos del manual técnico del proveedor (opcionales: no todos los
+    # perfiles del catálogo los tienen todavía). peso_kg_ml sirve para derivar
+    # costo_por_barra una vez que Leo dé el precio por Kg de aluminio.
+    ancho_mm: float | None = None
+    alto_mm: float | None = None
+    espesor_mm: float | None = None
+    peso_kg_ml: float | None = None
 
 
 @dataclass
@@ -93,7 +100,8 @@ def cargar_catalogo(directorio: Path | None = None) -> Catalogo:
             return json.load(f)
 
     perfiles = [
-        PerfilAluminio(p["codigo"], p["nombre"], p["categoria"], p["longitud_barra_mm"], p["costo_por_barra"])
+        PerfilAluminio(p["codigo"], p["nombre"], p["categoria"], p["longitud_barra_mm"], p["costo_por_barra"],
+                       p.get("ancho_mm"), p.get("alto_mm"), p.get("espesor_mm"), p.get("peso_kg_ml"))
         for p in leer("perfiles.json")
     ]
     vidrios = [

@@ -1,34 +1,142 @@
 [
   {
     "codigo": "MC-01",
-    "nombre": "Marco corrediza/batiente (PLACEHOLDER - completar con el perfil real)",
+    "nombre": "Marco genérico batiente/proyectante (PLACEHOLDER - sin perfil real de DAS todavía)",
     "categoria": "marco",
     "longitud_barra_mm": 6100,
     "costo_por_barra": 28.5,
-    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+    "_nota": "PLACEHOLDER DE EJEMPLO: usado solo por plantillas batientes/proyectante (batiente_1h, batiente_4h_1proyectante) para las que el manual Aldoca no dio perfil real. Reemplazar cuando Leo tenga esos datos."
   },
   {
     "codigo": "HJ-01",
-    "nombre": "Hoja corrediza/batiente (PLACEHOLDER - completar con el perfil real)",
+    "nombre": "Hoja genérica batiente/proyectante (PLACEHOLDER - sin perfil real de DAS todavía)",
     "categoria": "hoja",
     "longitud_barra_mm": 6100,
     "costo_por_barra": 24.0,
-    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+    "_nota": "PLACEHOLDER DE EJEMPLO: usado solo por plantillas batientes (hoja con bisagra) para las que el manual Aldoca no dio perfil real. Reemplazar cuando Leo tenga esos datos."
   },
   {
     "codigo": "JQ-01",
-    "nombre": "Junquillo (PLACEHOLDER - completar con el perfil real)",
+    "nombre": "Junquillo genérico (PLACEHOLDER - posible candidato real: ALD-707 'Perfil Tapa', sin confirmar)",
     "categoria": "junquillo",
     "longitud_barra_mm": 6100,
     "costo_por_barra": 6.5,
-    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+    "_nota": "PLACEHOLDER DE EJEMPLO: el manual Aldoca no dice explícitamente cuál perfil sostiene el vidrio en la Serie Normal corrediza. ALD-707 'Perfil Tapa' (22.0x61.0mm) es candidato por el nombre, pero no está confirmado — no asignarlo sin que Leo lo confirme."
   },
   {
     "codigo": "TR-01",
-    "nombre": "Travesaño (PLACEHOLDER - completar con el perfil real)",
+    "nombre": "Travesaño genérico (PLACEHOLDER - sin perfil real de DAS todavía)",
     "categoria": "travesano",
     "longitud_barra_mm": 6100,
     "costo_por_barra": 26.0,
-    "_nota": "PLACEHOLDER DE EJEMPLO: reemplazar con el código de perfil y costo real del proveedor"
+    "_nota": "PLACEHOLDER DE EJEMPLO: divisor horizontal entre proyectante y batientes en batiente_4h_1proyectante, no cubierto por el manual Aldoca."
+  },
+  {
+    "codigo": "ALD-701",
+    "nombre": "Vertical Gancho (traslape de hoja corrediza)",
+    "categoria": "vertical_gancho",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 11.44,
+    "ancho_mm": 40.0,
+    "alto_mm": 38.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.625,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-702",
+    "nombre": "Cabezal (marco superior corrediza)",
+    "categoria": "cabezal",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 12.88,
+    "ancho_mm": 72.0,
+    "alto_mm": 30.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.704,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-703",
+    "nombre": "Vertical Liso (lateral de hoja corrediza, contra jamba)",
+    "categoria": "vertical_liso",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 9.33,
+    "ancho_mm": 40.0,
+    "alto_mm": 25.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.510,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-704",
+    "nombre": "Horizontal (hoja corrediza superior/inferior)",
+    "categoria": "horizontal_hoja",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 9.19,
+    "ancho_mm": 22.0,
+    "alto_mm": 43.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.502,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-706",
+    "nombre": "Sillar (marco inferior corrediza, con desagüe)",
+    "categoria": "sillar",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 12.72,
+    "ancho_mm": 72.0,
+    "alto_mm": 41.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.695,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-709",
+    "nombre": "Jamba (marco lateral corrediza)",
+    "categoria": "jamba",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 11.44,
+    "ancho_mm": 72.0,
+    "alto_mm": 30.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.625,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Serie Normal, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER: es peso_kg_ml x 6.1m x $3.00/kg ilustrativo, no un precio real de proveedor — falta que Leo dé el $/kg o el costo por barra real."
+  },
+  {
+    "codigo": "ALD-722",
+    "nombre": "Pisa Vidrio (proyectante, corte a 90°)",
+    "categoria": "junquillo_proyectante",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 2.40,
+    "ancho_mm": 15.0,
+    "alto_mm": 12.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.131,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Sistema Proyectante, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER (ver nota de ALD-701). No wireado todavía en la plantilla del marco, solo en la hoja/pisa vidrio de panel_proyectante."
+  },
+  {
+    "codigo": "ALD-723",
+    "nombre": "Perfil Marco Proyectante (corte a 45°)",
+    "categoria": "marco_proyectante",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 6.86,
+    "ancho_mm": 30.0,
+    "alto_mm": 24.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.375,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Sistema Proyectante, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER (ver nota de ALD-701). Agregado al catálogo pero AÚN NO WIREADO en plantillas/proyectante_4h_1p.py — el marco perimetral de esa plantilla sigue usando MC-01 genérico porque comparte marco con las hojas batientes (sin perfil real todavía)."
+  },
+  {
+    "codigo": "ALD-724",
+    "nombre": "Perfil Hoja Proyectante (corte a 45°)",
+    "categoria": "hoja_proyectante",
+    "longitud_barra_mm": 6100,
+    "costo_por_barra": 9.41,
+    "ancho_mm": 30.0,
+    "alto_mm": 24.0,
+    "espesor_mm": 1.3,
+    "peso_kg_ml": 0.514,
+    "_nota": "Dimensiones y peso validados contra el manual técnico Aldoca (Sistema Proyectante, dado por Leo 2026-07-03). costo_por_barra SIGUE SIENDO PLACEHOLDER (ver nota de ALD-701)."
   }
 ]

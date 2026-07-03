@@ -20,7 +20,9 @@ class VentanaCorrediza2HojasFijo(PlantillaVentana):
     def calcular_piezas(self, ventana_id: str, ancho_total_mm: float, alto_total_mm: float, *,
                          ancho_fijo_mm: float | None = None,
                          reglas: ReglasFabricacion | None = None,
-                         perfil_marco: str = "MC-01", perfil_hoja: str = "HJ-01",
+                         perfil_cabezal: str = "ALD-702", perfil_sillar: str = "ALD-706",
+                         perfil_jamba: str = "ALD-709", perfil_vertical_liso: str = "ALD-703",
+                         perfil_vertical_gancho: str = "ALD-701", perfil_horizontal_hoja: str = "ALD-704",
                          perfil_junquillo: str = "JQ-01", tipo_vidrio: str = "Claro",
                          espesor_vidrio_mm: float = 4.0, **_) -> DespieceVentana:
         reglas = reglas or ReglasFabricacion()
@@ -32,18 +34,23 @@ class VentanaCorrediza2HojasFijo(PlantillaVentana):
         despiece = DespieceVentana(ventana_id, self.nombre, ancho_total_mm, alto_total_mm)
 
         despiece.piezas_aluminio += marco_perimetral(
-            ventana_id, "marco", ancho_total_mm, alto_total_mm, reglas, perfil_marco)
+            ventana_id, "marco", ancho_total_mm, alto_total_mm, reglas,
+            perfil_cabezal, perfil_sillar, perfil_jamba,
+            reglas.ancho_cabezal_mm, reglas.ancho_sillar_mm)
 
-        alto_util = alto_total_mm - 2 * reglas.ancho_perfil_marco_mm
+        alto_util = alto_total_mm - reglas.ancho_cabezal_mm - reglas.ancho_sillar_mm
+        # Parante central entre paño fijo y sección corrediza: el manual no da un
+        # perfil específico para esto, se usa la jamba (ALD-709) como aproximación
+        # razonable (misma familia/profundidad) — SIN CONFIRMAR con Leo.
         despiece.piezas_aluminio.append(
-            PiezaAluminio(perfil_marco, "Parante entre paño fijo y sección corrediza",
+            PiezaAluminio(perfil_jamba, "Parante entre paño fijo y sección corrediza",
                           alto_util, 1, ventana_id, "marco")
         )
 
-        # Ancho útil de cada módulo: se descuenta el marco lateral y medio parante central
-        ancho_util_fijo = ancho_fijo_mm - reglas.ancho_perfil_marco_mm - reglas.ancho_perfil_marco_mm / 2
+        # Ancho útil de cada módulo: se descuenta la jamba lateral y medio parante central
+        ancho_util_fijo = ancho_fijo_mm - reglas.ancho_jamba_mm - reglas.ancho_jamba_mm / 2
         ancho_util_corredizo = (
-            (ancho_total_mm - ancho_fijo_mm) - reglas.ancho_perfil_marco_mm - reglas.ancho_perfil_marco_mm / 2
+            (ancho_total_mm - ancho_fijo_mm) - reglas.ancho_jamba_mm - reglas.ancho_jamba_mm / 2
         )
 
         piezas_alu_fijo, piezas_vidrio_fijo = panel_fijo(
@@ -52,10 +59,12 @@ class VentanaCorrediza2HojasFijo(PlantillaVentana):
         despiece.piezas_aluminio += piezas_alu_fijo
         despiece.piezas_vidrio += piezas_vidrio_fijo
 
-        piezas_alu_corr, piezas_vidrio_corr = seccion_corrediza(
+        piezas_alu_corr, piezas_vidrio_corr, piezas_herrajes_corr = seccion_corrediza(
             ventana_id, "corredizo", ancho_util_corredizo, alto_util, 2, reglas,
-            perfil_hoja, perfil_junquillo, tipo_vidrio, espesor_vidrio_mm)
+            perfil_vertical_liso, perfil_vertical_gancho, perfil_horizontal_hoja, perfil_junquillo,
+            tipo_vidrio, espesor_vidrio_mm)
         despiece.piezas_aluminio += piezas_alu_corr
         despiece.piezas_vidrio += piezas_vidrio_corr
+        despiece.piezas_herrajes += piezas_herrajes_corr
 
         return despiece

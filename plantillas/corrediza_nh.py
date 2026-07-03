@@ -20,7 +20,9 @@ class VentanaCorredizaNHojas(PlantillaVentana):
     def calcular_piezas(self, ventana_id: str, ancho_total_mm: float, alto_total_mm: float, *,
                          num_hojas: int = 2,
                          reglas: ReglasFabricacion | None = None,
-                         perfil_marco: str = "MC-01", perfil_hoja: str = "HJ-01",
+                         perfil_cabezal: str = "ALD-702", perfil_sillar: str = "ALD-706",
+                         perfil_jamba: str = "ALD-709", perfil_vertical_liso: str = "ALD-703",
+                         perfil_vertical_gancho: str = "ALD-701", perfil_horizontal_hoja: str = "ALD-704",
                          perfil_junquillo: str = "JQ-01", tipo_vidrio: str = "Claro",
                          espesor_vidrio_mm: float = 4.0, **_) -> DespieceVentana:
         reglas = reglas or ReglasFabricacion()
@@ -28,15 +30,19 @@ class VentanaCorredizaNHojas(PlantillaVentana):
         despiece = DespieceVentana(ventana_id, self.nombre, ancho_total_mm, alto_total_mm)
 
         despiece.piezas_aluminio += marco_perimetral(
-            ventana_id, "marco", ancho_total_mm, alto_total_mm, reglas, perfil_marco)
+            ventana_id, "marco", ancho_total_mm, alto_total_mm, reglas,
+            perfil_cabezal, perfil_sillar, perfil_jamba,
+            reglas.ancho_cabezal_mm, reglas.ancho_sillar_mm)
 
-        ancho_util = ancho_total_mm - 2 * reglas.ancho_perfil_marco_mm
-        alto_util = alto_total_mm - 2 * reglas.ancho_perfil_marco_mm
+        ancho_util = ancho_total_mm - 2 * reglas.ancho_jamba_mm
+        alto_util = alto_total_mm - reglas.ancho_cabezal_mm - reglas.ancho_sillar_mm
 
-        piezas_alu, piezas_vidrio = seccion_corrediza(
+        piezas_alu, piezas_vidrio, piezas_herrajes = seccion_corrediza(
             ventana_id, "corredizo", ancho_util, alto_util, num_hojas, reglas,
-            perfil_hoja, perfil_junquillo, tipo_vidrio, espesor_vidrio_mm)
+            perfil_vertical_liso, perfil_vertical_gancho, perfil_horizontal_hoja, perfil_junquillo,
+            tipo_vidrio, espesor_vidrio_mm)
         despiece.piezas_aluminio += piezas_alu
         despiece.piezas_vidrio += piezas_vidrio
+        despiece.piezas_herrajes += piezas_herrajes
 
         return despiece
